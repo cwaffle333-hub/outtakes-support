@@ -35,7 +35,6 @@
     min-height: 100vh;
   }
 
-  /* Subtle grain texture */
   body::before {
     content: "";
     position: fixed;
@@ -48,7 +47,6 @@
 
   .page { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; padding: 0 20px; }
 
-  /* ── Header ── */
   .header {
     text-align: center;
     padding: calc(3rem + env(safe-area-inset-top, 0px)) 0 2rem;
@@ -95,7 +93,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── Sections ── */
   .section {
     margin-bottom: 2.5rem;
     animation: fade-up 0.5s ease-out both;
@@ -113,7 +110,6 @@
     margin-bottom: 12px;
   }
 
-  /* ── Contact Card ── */
   .contact-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -220,7 +216,6 @@
   .success-msg h3 { color: var(--text); font-size: 18px; font-weight: 700; margin-bottom: 4px; }
   .success-msg p { color: var(--text-secondary); font-size: 14px; }
 
-  /* ── FAQ ── */
   .faq-item {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -279,7 +274,6 @@
 
   .faq-a a { color: var(--accent); text-decoration: none; }
 
-  /* ── Footer ── */
   .footer {
     text-align: center;
     padding: 2rem 0 calc(2rem + env(safe-area-inset-bottom, 0px));
@@ -295,7 +289,6 @@
   .footer a { color: var(--text-secondary); text-decoration: none; }
   .footer a:hover { color: var(--accent); }
 
-  /* ── Mobile polish ── */
   @media (max-width: 480px) {
     .page { padding: 0 16px; }
     .contact-card { padding: 20px 16px; }
@@ -307,14 +300,12 @@
 
 <div class="page">
 
-  <!-- Header -->
   <div class="header">
     <div class="logo-mark">🎬</div>
     <h1>OUTTAKES</h1>
     <p class="subtitle">Support & Help Center</p>
   </div>
 
-  <!-- Contact Form -->
   <div class="section">
     <p class="section-label">Contact Us</p>
     <div class="contact-card">
@@ -359,12 +350,11 @@
       </div>
 
       <div class="email-direct">
-        Or email us directly at <a href="/cdn-cgi/l/email-protection#45363035352a3731052a303131242e20366b2820"><span class="__cf_email__" data-cfemail="31424441415e4345715e444545505a54421f5c54">[email&#160;protected]</span></a>
+        Or email us directly at <a id="emailLink"></a>
       </div>
     </div>
   </div>
 
-  <!-- FAQ -->
   <div class="section">
     <p class="section-label">Frequently Asked Questions</p>
 
@@ -404,7 +394,7 @@
         <span class="arrow">▼</span>
       </button>
       <div class="faq-a">
-        <p>Yes. You can request full account deletion by going to Settings within the app, or by emailing <a href="/cdn-cgi/l/email-protection#b0c3c5c0c0dfc2c4f0dfc5c4c4d1dbd5c39eddd5"><span class="__cf_email__" data-cfemail="cebdbbbebea1bcba8ea1bbbabaafa5abbde0a3ab">[email&#160;protected]</span></a> with the subject "Delete My Account." We will remove all your personal data, rankings, and profile information within 48 hours of your request.</p>
+        <p>Yes. You can request full account deletion by going to Settings within the app, or by emailing <span class="js-email"></span> with the subject "Delete My Account." We will remove all your personal data, rankings, and profile information within 48 hours of your request.</p>
       </div>
     </div>
 
@@ -424,7 +414,7 @@
         <span class="arrow">▼</span>
       </button>
       <div class="faq-a">
-        <p>We appreciate bug reports! Use the contact form above or email <a href="/cdn-cgi/l/email-protection#23505653534c5157634c565757424846500d4e46"><span class="__cf_email__" data-cfemail="bdcec8cdcdd2cfc9fdd2c8c9c9dcd6d8ce93d0d8">[email&#160;protected]</span></a> with a description of what happened, what you expected to happen, and your device/OS version. Screenshots are very helpful.</p>
+        <p>We appreciate bug reports! Use the contact form above or email <span class="js-email"></span> with a description of what happened, what you expected to happen, and your device/OS version. Screenshots are very helpful.</p>
       </div>
     </div>
 
@@ -434,43 +424,85 @@
         <span class="arrow">▼</span>
       </button>
       <div class="faq-a">
-        <p>Outtakes collects your email address (for authentication), your movie rankings and battle history, and your profile information (username, avatar). We do not sell your data to third parties. For full details, please review our <a href="/privacy">Privacy Policy</a>.</p>
+        <p>Outtakes collects your email address (for authentication), your movie rankings and battle history, and your profile information (username, avatar). We do not sell your data to third parties.</p>
       </div>
     </div>
 
   </div>
 
-  <!-- Footer -->
   <div class="footer">
     <p>&copy; 2025 Kieran Dreier. All rights reserved.</p>
     <p style="margin-top: 8px;">
-      <a href="/cdn-cgi/l/email-protection#ff8c8a8f8f908d8bbf908a8b8b9e949a8cd1929a"><span class="__cf_email__" data-cfemail="bbc8cecbcbd4c9cffbd4cecfcfdad0dec895d6de">[email&#160;protected]</span></a>
+      <a id="footerEmail"></a>
     </p>
   </div>
 
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+// Build email via JS so Cloudflare can't detect and obfuscate it
+(function() {
+  var u = 'support';
+  var d = 'outtakes.me';
+  var addr = u + '@' + d;
+  var mailto = 'mai' + 'lto:' + addr;
+
+  // Set all email links
+  var link = document.getElementById('emailLink');
+  if (link) { link.href = mailto; link.textContent = addr; }
+
+  var footer = document.getElementById('footerEmail');
+  if (footer) { footer.href = mailto; footer.textContent = addr; }
+
+  // Set inline email mentions in FAQ
+  document.querySelectorAll('.js-email').forEach(function(el) {
+    var a = document.createElement('a');
+    a.href = mailto;
+    a.textContent = addr;
+    a.style.color = '#E05A5A';
+    a.style.textDecoration = 'none';
+    el.replaceWith(a);
+  });
+})();
+
 function toggleFaq(btn) {
-  const item = btn.closest('.faq-item');
-  const wasOpen = item.classList.contains('open');
-  // Close all
-  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-  // Toggle clicked
+  var item = btn.closest('.faq-item');
+  var wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(el) { el.classList.remove('open'); });
   if (!wasOpen) item.classList.add('open');
 }
 
 function handleSubmit(e) {
   e.preventDefault();
-  const btn = document.getElementById('submitBtn');
-  const form = document.getElementById('supportForm');
-  const success = document.getElementById('successMsg');
+  var btn = document.getElementById('submitBtn');
+  var form = document.getElementById('supportForm');
+  var success = document.getElementById('successMsg');
 
   btn.disabled = true;
   btn.textContent = 'Sending...';
 
-  // Build mailto fallback (works without a backend)
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const topic = document.getElementById('topic').value;
-  const messag
+  var name = document.getElementById('name').value;
+  var email = document.getElementById('email').value;
+  var topic = document.getElementById('topic').value;
+  var message = document.getElementById('message').value;
+
+  var u = 'support';
+  var d = 'outtakes.me';
+  var subject = encodeURIComponent('[Outtakes Support] ' + topic + ' — from ' + name);
+  var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nTopic: ' + topic + '\n\n' + message);
+
+  window.location.href = 'mai' + 'lto:' + u + '@' + d + '?subject=' + subject + '&body=' + body;
+
+  setTimeout(function() {
+    form.style.display = 'none';
+    success.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Send Message';
+  }, 500);
+
+  return false;
+}
+</script>
+
+</body>
+</html>
